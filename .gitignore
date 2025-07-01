@@ -1,0 +1,306 @@
+# Client data files (Excel, CSV, JSON)
+data/
+*.xlsx
+*.xls
+*.csv
+*.json
+!data/README.md
+!data/.gitkeep
+
+# Generated documents (potentially contain client info)
+output/
+generated/
+documents/
+exports/
+
+# Log files (may contain sensitive data)
+logs/
+*.log
+log/
+
+# Configuration files with credentials or sensitive settings
+config/production_*
+config/prod_*
+config/live_*
+config/*_secret*
+config/*_private*
+.env
+.env.*
+!.env.example
+
+# API keys and credentials
+secrets/
+credentials/
+keys/
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+database/
+
+# Backup files (may contain sensitive data)
+backup/
+backups/
+*.backup
+*.bak
+
+# =============================================================================
+# PYTHON
+# =============================================================================
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+.env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# =============================================================================
+# OPERATING SYSTEMS
+# =============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# =============================================================================
+# EDITORS & IDEs
+# =============================================================================
+
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# PyCharm
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# =============================================================================
+# DOCUMENT GENERATION SPECIFIC
+# =============================================================================
+
+# Temporary Word files
+~$*.docx
+~$*.doc
+.~lock.*
+
+# PDF generation temp files
+*.tmp
+
+# Template backups
+templates/*.backup
+templates/*~
+
+# Progress tracking (may contain sensitive info)
+progress/
+session_*
+*.progress
+
+# Cache directories
+.cache/
+cache/
+
+# =============================================================================
+# DEVELOPMENT & TESTING
+# =============================================================================
+
+# Test output
+test_output/
+test_data/
+*_test.xlsx
+*_test.csv
+
+# Development configs
+config/dev_*
+config/development_*
+config/test_*
+
+# Profiling
+*.prof
+
+# =============================================================================
+# PACKAGE MANAGERS
+# =============================================================================
+
+# npm (if using any JS tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =============================================================================
+# ARCHIVE & COMPRESSION
+# =============================================================================
+
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# =============================================================================
+# KEEP THESE FILES (EXAMPLES & TEMPLATES)
+# =============================================================================
+
+# Keep example files for documentation
+!examples/
+!samples/
+!templates/example_*
+!data/sample_*
+!config/example_*
+!config/*_example.*
+
+# Keep empty directories with .gitkeep
+!**/.gitkeep
+
+# Keep README files
+!**/README.md
+!**/README.txt

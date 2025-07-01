@@ -1,0 +1,50 @@
+# File: mappers/care_plans_mapper.yaml
+# Care Plans Project Configuration
+project_name: "care_plans"
+template_file: "care_plan_template.docx"
+
+# Excel column to template variable mapping
+field_mappings:
+  "ACN": "ACN"
+  "GivenName": "FirstName"
+  "FamilyName": "LastName"
+  "BirthDate": "DOB"
+  "GenderCode": "Gender"
+  "AddressLine1": "Address1"
+  "AddressLine2": "Address2"
+  "Suburb": "Suburb"
+  "Postcode": "PostCode"
+  "Type": "ServiceType" # Map the service type column
+
+# Fixed values to add to every document
+fixed_values:
+  "DateOfPlan": "15/11/24"
+  "ReviewDate": "14/11/25"
+
+# Data transformations to apply
+transformations:
+  "DOB": "date_format:%d/%m/%Y"
+  "FirstName": "clean_nan"
+  "LastName": "clean_nan"
+  "Gender": "clean_nan"
+  "Address1": "clean_nan"
+  "Address2": "clean_nan"
+  "Suburb": "clean_nan"
+  "PostCode": "clean_nan"
+  "ServiceType": "clean_nan"
+
+# Required fields (warnings if missing)
+required_fields:
+  - "ACN"
+  - "FirstName"
+  - "LastName"
+
+# Service type mappings for checkbox logic
+service_types:
+  "HM": "Home Maintenance"
+  "DA": "Domestic Assistance"
+  "PC": "Personal Care"
+  "CA": "Community Access"
+
+# Future Phase 2: LLM-enhanced fields
+llm_fields: []

@@ -1,0 +1,34 @@
+# File: config/app_config.yaml
+# DocuGen Application Configuration
+
+logging:
+  level: INFO
+  file_pattern: "logs/docugen_{date}.log"
+  console_output: true
+
+paths:
+  templates_dir: "templates"
+  output_dir: "output"
+  data_dir: "data"
+
+output:
+  formats: ["docx", "pdf"]
+  naming_pattern: "{ACN}_{LastName}"
+  duplicate_handling: "rename" # rename, overwrite, skip
+  directory_structure: "flat" # flat or organized
+
+pdf:
+  primary_converter: "docx2pdf"
+  fallback_converter: "libreoffice"
+  export_format: "pdf:writer_pdf_Export:SelectPdfVersion=1"
+
+processing:
+  batch_size: 100
+  progress_save_interval: 10
+  continue_on_errors: true
+  parallel_workers: 1 # Phase 1: sequential only
+
+validation:
+  strict_mode: false
+  log_warnings: true
+  required_fields_enforce: false
