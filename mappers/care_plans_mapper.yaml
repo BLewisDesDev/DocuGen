@@ -43,8 +43,8 @@ required_fields:
 service_types:
   "HM": "Home Maintenance"
   "DA": "Domestic Assistance"
-  "PC": "Personal Care"
-  "CA": "Community Access"
+  # "PC": "Personal Care"
+  # "CA": "Community Access"
 
 # Future Phase 2: LLM-enhanced fields
 llm_fields: []
