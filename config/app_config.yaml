@@ -32,3 +32,6 @@ validation:
   strict_mode: false
   log_warnings: true
   required_fields_enforce: false
+
+input:
+  client_map: "/Users/byron/repos/DATABASE/chsp_client_mapper/output/chsp_client_map.json"
