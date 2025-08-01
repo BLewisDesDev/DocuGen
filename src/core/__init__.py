@@ -2,5 +2,6 @@
 
 from .config_loader import ConfigLoader
 from .document_processor import DocumentProcessor
+from .jinja_processor import JinjaProcessor
 
-__all__ = ['ConfigLoader', 'DocumentProcessor']
+__all__ = ['ConfigLoader', 'DocumentProcessor','JinjaProcessor']

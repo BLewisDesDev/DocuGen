@@ -97,15 +97,14 @@ DocuGen/
 ├── templates/
 │   └── care_plan_template.docx # Word templates
 ├── data/
-│   └── sample_clients.xlsx     # Input Excel files
+│   └── *                       # Path to client_map.json
 ├── output/                     # Generated documents
 ├── logs/                       # Application logs
 ├── src/
 │   ├── cli/                    # Command-line interface
 │   ├── core/                   # Core business logic
-│   ├── importers/              # Data input handlers
 │   ├── generators/             # Document output handlers
-│   ├── templates/              # Template processing
+│   ├── importers/              # Data input handlers
 │   └── utils/                  # Utilities
 └── main.py                     # Entry point
 ```
