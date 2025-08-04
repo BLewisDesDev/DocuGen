@@ -2,14 +2,19 @@
 
 import yaml
 import logging
+import os
 from pathlib import Path
 from typing import Dict, Any
+from ..utils.env_loader import EnvLoader
 
 class ConfigLoader:
     """Handles loading and validation of YAML configuration files."""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
+        self.env_loader = EnvLoader()
+        # Load .env file on initialization
+        self.env_loader.load_env_file()
     
     def load_app_config(self, config_path: str = "config/app_config.yaml") -> Dict[str, Any]:
         """Load application configuration."""
@@ -19,7 +24,11 @@ class ConfigLoader:
             raise FileNotFoundError(f"Application config file not found: {config_path}")
         
         with open(config_file, 'r') as f:
-            config = yaml.safe_load(f)
+            config_content = f.read()
+            
+        # Replace environment variable placeholders
+        config_content = self._replace_env_vars(config_content)
+        config = yaml.safe_load(config_content)
         
         # Validate required sections
         required_sections = ['logging', 'processing', 'paths', 'output']
@@ -33,6 +42,17 @@ class ConfigLoader:
         
         self.logger.debug(f"Loaded app config from: {config_path}")
         return config
+    
+    def _replace_env_vars(self, content: str) -> str:
+        """Replace ${VAR_NAME} placeholders with environment variable values."""
+        import re
+        
+        def replace_var(match):
+            var_name = match.group(1)
+            return os.getenv(var_name, match.group(0))  # Return original if not found
+        
+        # Replace ${VAR_NAME} patterns
+        return re.sub(r'\$\{([^}]+)\}', replace_var, content)
     
     def load_mapper_config(self, config_path: str) -> Dict[str, Any]:
         """Load mapper configuration."""
@@ -68,7 +88,11 @@ class ConfigLoader:
             raise FileNotFoundError(f"Mapper config file not found: {config_path}")
         
         with open(config_file, 'r') as f:
-            config = yaml.safe_load(f)
+            config_content = f.read()
+            
+        # Replace environment variable placeholders
+        config_content = self._replace_env_vars(config_content)
+        config = yaml.safe_load(config_content)
         
         # Validate required fields
         required_fields = ['project_name', 'template_file', 'field_mappings']
