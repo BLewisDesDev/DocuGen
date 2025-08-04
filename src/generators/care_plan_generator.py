@@ -52,30 +52,34 @@ class CarePlanGenerator:
     def _generate_filename(self, data: Dict[str, Any]) -> str:
         """Generate filename from data using configured pattern."""
         
-        # Get naming pattern from config or use default
-        pattern = self.app_config.get('output', {}).get('naming_pattern', 
-                                                       "{client_name}_{date_processed}")
+        # Use new naming pattern: {client_name}_{ACN}_{service_start_date}
+        pattern = "{client_name}_{ACN}_{service_start_date}"
+        
+        # Extract client data - support both old and new field names
+        first_name = data.get('FirstName') or data.get('GivenName', 'Unknown')
+        last_name = data.get('LastName') or data.get('FamilyName', 'Client')
+        client_name = f"{first_name}_{last_name}"
+        acn = data.get('ACN', 'UNKNOWN')
+        service_start_date = data.get('ServiceStartDate', 'UNKNOWN')
+        
+        # Clean service start date for filename
+        if service_start_date and service_start_date != 'UNKNOWN':
+            # Convert date format from YYYY-MM-DD to YYYYMMDD
+            service_start_date = service_start_date.replace('-', '')
         
         # Prepare variables for filename
         filename_data = {
-            'client_name': self._sanitize_filename(data.get('client_name', 'Unknown')),
-            'template_name': 'care_plan',
-            'date_processed': self._get_current_date(),
-            'row_number': data.get('_row_number', '001')
+            'client_name': self._sanitize_filename(client_name),
+            'ACN': acn,
+            'service_start_date': service_start_date
         }
-        
-        # Add custom client ID if available
-        if 'client_id' in data and data['client_id']:
-            filename_data['client_id'] = self._sanitize_filename(str(data['client_id']))
-            # Use client_id instead of client_name if available
-            pattern = pattern.replace('{client_name}', '{client_id}')
         
         try:
             filename = pattern.format(**filename_data)
         except KeyError as e:
             self.logger.warning(f"Missing variable in filename pattern: {e}")
             # Fallback to simple pattern
-            filename = f"{filename_data['client_name']}_{filename_data['row_number']}"
+            filename = f"{filename_data['client_name']}_{filename_data.get('ACN', 'UNKNOWN')}"
         
         return filename
     

@@ -18,8 +18,8 @@ field_mappings:
 
 # Fixed values to add to every document
 fixed_values:
-  "DateOfPlan": "15/11/24"
-  "ReviewDate": "14/11/25"
+  "DateOfPlan": "01/01/25"
+  "ReviewDate": "01/11/26"
 
 # Data transformations to apply
 transformations:
@@ -46,5 +46,4 @@ service_types:
   # "PC": "Personal Care"
   # "CA": "Community Access"
 
-# Future Phase 2: LLM-enhanced fields
 llm_fields: []

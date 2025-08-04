@@ -1,0 +1,103 @@
+# File: mappers/client_map_hm_mapper.yaml  
+# Client Map HM Service Configuration
+project_name: "client_map_hm"
+template_file: "chsp_care_plan_template_updated.docx"
+
+# Direct field mappings from client_map.json
+field_mappings:
+  "ACN": "ACN"
+  "FirstName": "FirstName"
+  "LastName": "LastName"
+  "DOB": "DOB"
+  "Gender": "Gender"
+  "Phone": "Phone"
+  "Address1": "Address1"
+  "Address2": "Address2"
+  "Suburb": "Suburb"
+  "PostCode": "PostCode"
+  "Concerns": "Concerns"
+  "ServiceStartDate": "ServiceStartDate"
+  "Type": "Type"
+  "ServiceTypes": "ServiceTypes"
+
+# Fixed values for HM service
+fixed_values:
+  "MaritalStatus": "Not specified"
+  "KinFirstName": "Emergency Contact"
+  "KinLastName": "Required"
+  "KinRelationship": "To be confirmed"
+  "KinPhone": "To be confirmed"
+  "KinAddress": "To be confirmed"
+  "NextReviewDate": "12 months from service start"
+  "ReviewPeriod": "12 months"
+  "WellnessApproach": "Standard wellness approach focusing on maintaining independence and property safety"
+  "TimeLimitedServices": "false"
+  "WHSAssessmentComplete": "true"
+  "WHSAssessmentDate": "Service commencement date"
+  "FSEP": "false"
+  "FSPCompleted": "false"
+  "EP": "true"
+  "EmergencyPlanDetails": "Standard emergency procedures apply"
+  "ClientContribution": "As per Caura's Client Contribution Policy"
+  "HardshipExplained": "true"
+  "TwelveMonthReviewDate": "12 months from service start"
+  "MACRecordUpdated": "true"
+  "CulturalNeeds": "None identified"
+  "AccessibilityNeeds": "None identified"
+  "StaffName": "Care Coordinator"
+  "StaffPosition": "Care Coordinator"
+  "PlanCreatedDate": "Service commencement date"
+  "ClientConsulted": "true"
+  "ClientConsultDate": "Service commencement date"
+  "SupervisorName": "Team Leader"
+  "SupervisorReviewDate": "Service commencement date"
+  "UpdateDate": "Service commencement date"
+  "UpdatedBy": "Care Coordinator"
+  "UpdateReason": "Initial care plan creation"
+  "Frequency1": "Monthly"
+  "Frequency2": "Biannually" 
+  "Frequency3": "As required"
+
+# Data transformations
+transformations:
+  "DOB": "date_format:%d/%m/%Y"
+  "FirstName": "clean_nan"
+  "LastName": "clean_nan"
+  "Gender": "clean_nan"
+  "Phone": "clean_nan"
+  "Address1": "clean_nan"
+  "Address2": "clean_nan"
+  "Suburb": "clean_nan"
+  "PostCode": "clean_nan"
+  "ServiceStartDate": "date_format:%d/%m/%Y"
+
+# Required fields
+required_fields:
+  - "ACN"
+  - "FirstName"
+  - "LastName"
+  - "Concerns"
+
+# Service type mappings  
+service_types:
+  "DA": "Domestic Assistance"
+  "HM": "Home Maintenance"
+
+# LLM enhanced fields - these will be generated based on client concerns
+llm_fields:
+  - "Goal1"
+  - "Goal2"
+  - "Goal3" 
+  - "CareNeed1"
+  - "CareNeed2"
+  - "CareNeed3"
+  - "Intervention1"
+  - "Intervention2"
+  - "Intervention3"
+  - "Task1"
+  - "Task2"
+  - "Task3"
+  - "Task4"
+  - "WHSIssues"
+  - "RiskMitigation"
+  - "OtherInfo"
