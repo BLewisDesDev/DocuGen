@@ -3,8 +3,12 @@
 import logging
 import subprocess
 from pathlib import Path
-from typing import Dict, Any
-from docx2pdf import convert
+from typing import Dict, Any, Optional
+
+try:
+    from docx2pdf import convert
+except ImportError:
+    convert = None
 
 class CarePlanGenerator:
     """Handles care plan document generation and PDF conversion."""
@@ -39,7 +43,7 @@ class CarePlanGenerator:
             
             # Generate PDF if requested
             if generate_pdf:
-                pdf_path = self._generate_pdf(docx_path)
+                pdf_path = self._generate_pdf_headless(docx_path)
                 if pdf_path:
                     result['pdf'] = pdf_path
             
@@ -126,12 +130,30 @@ class CarePlanGenerator:
                     return new_path
                 counter += 1
     
-    def _generate_pdf(self, docx_path: Path) -> Path:
-        """Generate PDF from Word document."""
+    def _generate_pdf_headless(self, docx_path: Path) -> Optional[Path]:
+        """Generate PDF using headless conversion methods."""
+        
+        from ..exporters.headless_pdf_exporter import HeadlessPdfExporter
+        
+        exporter = HeadlessPdfExporter(self.app_config)
+        pdf_path = exporter.convert_to_pdf(docx_path)
+        
+        if pdf_path:
+            self.logger.debug(f"Generated PDF via headless exporter: {pdf_path}")
+        else:
+            self.logger.warning(f"Headless PDF conversion failed for {docx_path}")
+        
+        return pdf_path
+    
+    def _generate_pdf(self, docx_path: Path) -> Optional[Path]:
+        """Generate PDF from Word document (legacy method)."""
         
         pdf_path = docx_path.with_suffix('.pdf')
         
         try:
+            if convert is None:
+                raise Exception("docx2pdf package not available")
+                
             # Try docx2pdf first
             convert(str(docx_path), str(pdf_path))
             

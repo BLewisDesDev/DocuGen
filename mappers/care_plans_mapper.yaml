@@ -43,7 +43,5 @@ required_fields:
 service_types:
   "HM": "Home Maintenance"
   "DA": "Domestic Assistance"
-  # "PC": "Personal Care"
-  # "CA": "Community Access"
 
 llm_fields: []

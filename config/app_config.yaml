@@ -21,6 +21,8 @@ pdf:
   primary_converter: "docx2pdf"
   fallback_converter: "libreoffice"
   export_format: "pdf:writer_pdf_Export:SelectPdfVersion=1"
+  headless_mode: true
+  skip_word_open: true
 
 processing:
   batch_size: 100

@@ -107,17 +107,27 @@ class JsonImporter:
         return mapped_data
     
     def filter_clients_by_service(self, clients: List[Dict[str, Any]], 
-                                service_type: str, limit: int = 1) -> List[Dict[str, Any]]:
+                                service_type: str, limit: int = 1, random_selection: bool = False) -> List[Dict[str, Any]]:
         """Filter clients by service type and return limited number."""
         
-        filtered_clients = []
+        # First, collect all clients with the service type
+        matching_clients = []
         
         for client in clients:
             service_types = self.get_service_types(client)
             if service_type in service_types:
-                filtered_clients.append(client)
-                if len(filtered_clients) >= limit:
-                    break
+                matching_clients.append(client)
         
-        self.logger.info(f"Found {len(filtered_clients)} clients with {service_type} service")
-        return filtered_clients
+        self.logger.info(f"Found {len(matching_clients)} total clients with {service_type} service")
+        
+        # Return random selection or first N clients
+        if random_selection and len(matching_clients) > limit:
+            import random
+            selected_clients = random.sample(matching_clients, limit)
+            self.logger.info(f"Randomly selected {len(selected_clients)} clients with {service_type} service")
+            return selected_clients
+        else:
+            # Return first N clients
+            filtered_clients = matching_clients[:limit]
+            self.logger.info(f"Selected first {len(filtered_clients)} clients with {service_type} service")
+            return filtered_clients

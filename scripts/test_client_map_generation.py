@@ -262,73 +262,73 @@ def main():
         client_map_path = "/Users/byron/repos/DATABASE/chsp_client_mapper/output/chsp_client_map.json"
         clients = json_importer.load_data(client_map_path)
         
-        # Find first DA client and first HM client
-        da_clients = json_importer.filter_clients_by_service(clients, 'DA', limit=1)
-        hm_clients = json_importer.filter_clients_by_service(clients, 'HM', limit=1)
+        # Find 1 random DA client and 1 random HM client
+        da_clients = json_importer.filter_clients_by_service(clients, 'DA', limit=1, random_selection=True)
+        hm_clients = json_importer.filter_clients_by_service(clients, 'HM', limit=1, random_selection=True)
         
         generated_docs = []
         
-        # Process DA client
+        # Process DA clients
         if da_clients:
-            print("\n=== Processing DA Client ===")
-            da_client = da_clients[0]
+            print(f"\n=== Processing {len(da_clients)} DA Clients ===")
             config = config_loader.load_mapper_config("client_map_da_mapper.yaml")
-            
-            # Map basic client data
-            client_data = json_importer.map_client_data(da_client, config)
-            service_types = ['DA']
-            
-            # Enhance with LLM
-            enhanced_data = enhance_client_data_with_llm(client_data, service_types)
-            
-            print(f"DA Client: {enhanced_data.get('FirstName')} {enhanced_data.get('LastName')}")
-            print(f"Services: {service_types}")
-            print(f"Generated fields: Goals, Care Needs, Interventions, Tasks")
-            
-            # Load app config and initialize generator
             app_config = config_loader.load_app_config()
             output_dir = Path("output/test_client_map")
             generator = CarePlanGenerator(output_dir, app_config)
             
-            # Generate document - simplified approach for testing
             from src.core.jinja_processor import JinjaProcessor
             template_processor = JinjaProcessor()
             template_path = Path("templates") / config['template_file']
             
-            result = generator.generate_document(template_path, enhanced_data, template_processor)
-            generated_docs.append(('DA', result.get('docx')))
-            print(f"Generated DA document: {result.get('docx')}")
+            for i, da_client in enumerate(da_clients, 1):
+                print(f"\n--- DA Client {i} ---")
+                
+                # Map basic client data
+                client_data = json_importer.map_client_data(da_client, config)
+                service_types = ['DA']
+                
+                # Enhance with LLM
+                enhanced_data = enhance_client_data_with_llm(client_data, service_types)
+                
+                print(f"Client: {enhanced_data.get('FirstName')} {enhanced_data.get('LastName')}")
+                print(f"ACN: {enhanced_data.get('ACN')}")
+                print(f"Service Start: {enhanced_data.get('ServiceStartDate')}")
+                
+                # Generate document (skip PDF to avoid permissions)
+                result = generator.generate_document(template_path, enhanced_data, template_processor, generate_pdf=False)
+                generated_docs.append(('DA', result.get('docx')))
+                print(f"Generated: {result.get('docx')}")
         
-        # Process HM client
+        # Process HM clients
         if hm_clients:
-            print("\n=== Processing HM Client ===")
-            hm_client = hm_clients[0]
+            print(f"\n=== Processing {len(hm_clients)} HM Clients ===")
             config = config_loader.load_mapper_config("client_map_hm_mapper.yaml")
-            
-            # Map basic client data
-            client_data = json_importer.map_client_data(hm_client, config)
-            service_types = ['HM']
-            
-            # Enhance with LLM
-            enhanced_data = enhance_client_data_with_llm(client_data, service_types)
-            
-            print(f"HM Client: {enhanced_data.get('FirstName')} {enhanced_data.get('LastName')}")
-            print(f"Services: {service_types}")
-            print(f"Generated fields: Goals, Care Needs, Interventions, Tasks")
-            
-            # Load app config and initialize generator
             app_config = config_loader.load_app_config()
             output_dir = Path("output/test_client_map")
             generator = CarePlanGenerator(output_dir, app_config)
             
-            # Generate document - simplified approach for testing
             from src.core.jinja_processor import JinjaProcessor
             template_processor = JinjaProcessor()
             template_path = Path("templates") / config['template_file']
             
-            result = generator.generate_document(template_path, enhanced_data, template_processor)
-            generated_docs.append(('HM', result.get('docx')))
-            print(f"Generated HM document: {result.get('docx')}")
+            for i, hm_client in enumerate(hm_clients, 1):
+                print(f"\n--- HM Client {i} ---")
+                
+                # Map basic client data
+                client_data = json_importer.map_client_data(hm_client, config)
+                service_types = ['HM']
+                
+                # Enhance with LLM
+                enhanced_data = enhance_client_data_with_llm(client_data, service_types)
+                
+                print(f"Client: {enhanced_data.get('FirstName')} {enhanced_data.get('LastName')}")
+                print(f"ACN: {enhanced_data.get('ACN')}")
+                print(f"Service Start: {enhanced_data.get('ServiceStartDate')}")
+                
+                # Generate document (skip PDF to avoid permissions)
+                result = generator.generate_document(template_path, enhanced_data, template_processor, generate_pdf=False)
+                generated_docs.append(('HM', result.get('docx')))
+                print(f"Generated: {result.get('docx')}")
         
         # Summary
         print(f"\n=== Generation Complete ===")
