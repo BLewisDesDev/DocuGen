@@ -39,15 +39,15 @@ input:
   client_map: "/Users/byron/repos/DATABASE/chsp_client_mapper/output/chsp_client_map.json"
 
 sharepoint:
-  tenant_name: "nationalabilitycare"  # From .env SHAREPOINT_SITE_URL
-  site_name: "Caura2"                 # From .env SHAREPOINT_SITE_URL
-  full_site_url: "https://nationalabilitycare.sharepoint.com/sites/Caura2"  # Fallback
-  document_library: "Documents"       # Document library name
-  base_folder: "CHSP/Clients/Client Records"  # Base folder for care plans
+  tenant_name: "nationalabilitycare" # From .env SHAREPOINT_SITE_URL
+  site_name: "Caura2" # From .env SHAREPOINT_SITE_URL
+  full_site_url: "https://nationalabilitycare.sharepoint.com/sites/Caura2" # Fallback
+  document_library: "Documents" # Document library name
+  base_folder: "CHSP/Clients/Client Records" # Base folder for care plans
   folder_structure: "CarePlans/{acn}-{given_name}-{family_name}"
 
 # Microsoft Graph API credentials (loaded from config/.env)
 graph_api:
-  client_id: "${AZURE_CLIENT_ID}"     # From .env
-  client_secret: "${AZURE_CLIENT_SECRET}"  # From .env  
-  tenant_id: "${AZURE_TENANT_ID}"     # From .env
+  client_id: "${AZURE_CLIENT_ID}" # From .env
+  client_secret: "${AZURE_CLIENT_SECRET}" # From .env
+  tenant_id: "${AZURE_TENANT_ID}" # From .env
